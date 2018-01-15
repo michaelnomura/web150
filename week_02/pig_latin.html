@@ -1,0 +1,67 @@
+<script>
+
+//prompt user to input 
+var sentence = prompt('Input word or sentence');
+//check input is longer than 1 char
+while (sentence.length < 2){
+    sentence = prompt('Input can\'t be translated');
+    }
+
+
+
+function pigConv(word){//function that converts word to pig latin
+    
+    //check if a word begins with a vowel
+    var vowels = 'aeiou';
+    if(vowels.indexOf(word[0])>-1){
+        
+        //translate
+        var pigLatin = word + 'way';
+
+    //check if second letter is a consonant
+    }else if(vowels.indexOf(word[1])<0){
+        
+        //translate
+        var pigLatin = word.slice(2) + word.slice(0,1) + word.slice(1,2) + 'ay';
+
+    //default
+    } else{
+        
+        //translate
+        var pigLatin = word.slice(1) + word.slice(0,1) + 'ay';
+             }
+
+    //var firstChar = word.slice(0,1);
+
+    //check if first char is uppercase
+    if(word.slice(0,1) == word.slice(0,1).toUpperCase()){
+        //var testVar = "Uppercase"
+        //make first letter uppercase
+        pigLatin = 
+            pigLatin.slice(0,1).toUpperCase() + 
+            pigLatin.slice(1).toLowerCase();
+    }else{
+        //var testVar = "Lowercase"
+    }
+    
+    return pigLatin;
+    
+}
+
+//split sentence by spaces
+var words = sentence.split(" ");
+//instance variable for converted sentence
+var newSentence = '';
+
+//loop through words in sentence
+for (var i in words){
+    //translate word
+    pigConv(words[i]);
+    //add word to sentence
+    newSentence += pigConv(words[i]) + ' ';
+}
+
+document.write(newSentence);
+</script>
+<br />
+
