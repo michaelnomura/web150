@@ -1,0 +1,71 @@
+<script>
+var grades = "jim|25, sue|32, mary|34, ann|22, ted|28, frank|15, lisa|19, mike|30, ahn|26, vishaya|27";
+var students = [];
+var student = [];
+var studentName = '';
+var lowestGrade = 100;
+var topGrade = 0;
+var gradesTotal = 0;
+var average = 0;
+var studentForm = [];
+var sortedNames = [];
+    
+//create array by spliting string by ', '
+students = grades.split(', ');
+
+//loop through students
+for (i in students){
+    
+    //split entries in array by |
+    student = students[i].split('|');
+    
+    //capitalize the first letter of student name
+    studentName = student[0].slice(0,1).toUpperCase() + student[0].slice(1);
+    
+    //add grades together to total
+    gradesTotal += parseInt(student[1]);
+    
+    //document.write('gradesTotal: ' + gradesTotal + '<br />');
+    
+    //check grade to see if highest
+    if (student[1]<lowestGrade){
+        //is lowest grade set lowest
+        lowestGrade = student[1];
+    }
+    //check if grade is lowest
+    if (student[1]>topGrade){
+        //is top grade set highest
+        topGrade = student[1];
+    }
+   
+    //add formatted name and score to array
+    studentForm.push(studentName + ' - ' + student[1]);
+        
+}
+    
+//sort array
+sortedNames = studentForm.sort();
+    
+ 
+//loop through and display names in order
+for(j in sortedNames){
+    document.write('<li>'+ sortedNames[j]);
+}
+
+document.write('<br />')
+
+//find average of grades
+average = gradesTotal/students.length;
+
+//display total # of students,
+document.write('Total Students:' + students.length + '<br />');
+
+//display the lowest, 
+document.write('Lowest Grade: ' + lowestGrade + '<br />');
+//highest, and 
+document.write('Top Grade: ' + topGrade + '<br />');
+
+//average scores
+document.write('Grade Average: ' + average + '<br />');
+    
+</script>
