@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head><script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+</head>
+<body>
+
+<h1>Functions & validation</h1>
+
+<form id="form1" action="#" onsubmit="return validateForm(this);">
+    <p>First Name: <input type="text" name="firstname"></p>
+    <p>Last Name: <input type="text" name="lastname"></p>
+    <p>Password: <input type="text" name="password"></p>
+    <p>Valid passwords must have at least 8 characters, at least one uppercase letter, and at  least one lowercase letter.</p>
+<button>Check</button>
+</form>
+
+<hr><div id="message"></div>
+
+<script>
+//function takes input from form and checks for valid data
+function validateForm(myForm) {
+
+    var firstname = myForm.firstname.value; // get text of firstname field
+    var lastname = myForm.lastname.value; // get text of firstname field
+    var password = myForm.password.value; // get text of firstname field
+    
+    //console.log(validatePass(password))
+    if (firstname.length == 0) 
+    {//check for user input in firstname field
+        
+        $("#message").html("Please Enter First Name");
+    } else if (lastname.length == 0)
+    {//check for user input in lastname field
+        
+        $("#message").html("Please Enter Last Name");
+    } else if (!validatePass(password)) 
+    {//check password using validatePass function
+        
+        $("#message").html("Invalid Password, Try Again");
+    } else
+    {//if input passes all check output success
+        
+        $("#message").html("Success");
+    }
+
+    return false; // prevent page reload 
+}
+
+//checks password is valid
+function validatePass(pass) {
+    
+    if (pass == '') 
+    {//check for user input
+        
+        return false;
+        
+    }else if (pass.length < 8) 
+    {//check for 8 characters
+        
+        return false;
+        
+    }else if (pass == pass.toUpperCase())
+    {//check if all uppercase
+        
+        return false;
+        
+    }else if (pass == pass.toLowerCase())
+    {//check if all lowrcase
+        
+        return false;
+        
+    }else
+    {//is valid data
+        return true;
+    }
+}
+
+</script>
+
+</body>
+</html>
