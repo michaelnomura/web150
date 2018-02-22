@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+    body {
+        font: 15px arial, sans-serif;
+    }
+
+    
+button {
+    background-color: #4CAF50;
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    width:20%;
+}
+
+</style>
+</head>
+<h1></h1>
+<h1>RoboDealer</h1>
+<p id="cardOne"></p>
+<p id="cardTwo"></p>
+<p id="cardThree"></p>
+<p id="cardFour"></p>
+<p id="cardFive"></p>
+
+
+
+<button onclick="dealCards(deckOfCards)">Five Cards</button>
+<br>
+<button class="button" onclick="dealThreeCards(deckOfCards)">Black Jack</button>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script>
+//define array of card objects
+//
+
+var suites = ["Spades", "Hearts", "Clubs", "Diamonds"];
+var names = ["Ace","Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine","Jack","Queen","King"]
+
+var deckOfCards = []
+for (s in suites) {
+    for (n in names) {        
+        //if face card
+        if (n>10){
+            deckOfCards.push( {suit: suites[s], value: 10, name: names[n] })
+        }else{
+            deckOfCards.push( {suit: suites[s], value: Number(n)+1, name: names[n] })
+        }       
+    }//end for (n in names)
+}//end for (s in suites)
+    
+function dealCards(deckOfCards){
+    
+    var deck = deckOfCards;
+    
+    //make array for hand
+    var hand = [];
+    
+    var text = "";
+    var i = 0;
+    while (i < 5)
+    {//do five times
+        
+        //create random number
+        var cardNum = Math.floor(Math.random() * deck.length);
+        
+        //add card to hand
+        hand[i] = { suit: deck[cardNum].suit, 
+                   value: deck[cardNum].value, 
+                   name: deck[cardNum].name };
+        
+        
+        //remove card from deck
+        deck.splice(cardNum,1);
+    i++;
+    }//end while loop
+    
+    document.getElementById("cardOne").innerHTML = hand[0].name + " of " + hand[0].suit;
+    document.getElementById("cardTwo").innerHTML = hand[1].name + " of " + hand[1].suit;
+    document.getElementById("cardThree").innerHTML = hand[2].name + " of " + hand[2].suit;
+    document.getElementById("cardFour").innerHTML = hand[3].name + " of " + hand[3].suit;
+    document.getElementById("cardFive").innerHTML = hand[4].name + " of " + hand[4].suit;
+    
+    //return hand;
+    
+}//end function
+    
+function dealThreeCards(deckOfCards){
+    
+    var deck = deckOfCards;
+    
+    //make array for hand
+    var hand = [];
+    
+    var text = "";
+    var totalCards = 0;
+    var result = '';
+    var i = 0;
+    while (i < 3)
+    {//do five times
+        
+        //create random number
+        var cardNum = Math.floor(Math.random() * deck.length);
+        
+        //add card to hand
+        hand[i] = { suit: deck[cardNum].suit, 
+                   value: deck[cardNum].value, 
+                   name: deck[cardNum].name };
+        
+        
+        //remove card from deck
+        deck.splice(cardNum,1);
+    i++;
+    }//end while loop
+    
+    totalCards = hand[0].value + 
+        hand[1].value + 
+        hand[2].value;
+    
+    if(totalCards>21){
+        result = 'Lose';
+    }else{
+        result = 'Win';
+    }
+    
+    document.getElementById("cardOne").innerHTML = hand[0].name + " of " + hand[0].suit;
+    document.getElementById("cardTwo").innerHTML = hand[1].name + " of " + hand[1].suit;
+    document.getElementById("cardThree").innerHTML = hand[2].name + " of " + hand[2].suit;
+    document.getElementById("cardFour").innerHTML = "Total: " + totalCards;
+    document.getElementById("cardFive").innerHTML = "You " + result;
+    
+    //return hand;
+    
+}//end function
+    
+$(document).ready(function(){
+    $("p").on("click", function(){
+        ;
+    });
+});
+      
+</script>
