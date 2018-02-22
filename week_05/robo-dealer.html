@@ -36,6 +36,8 @@ button {
 <button onclick="dealCards(deckOfCards)">Five Cards</button>
 <br>
 <button class="button" onclick="dealThreeCards(deckOfCards)">Black Jack</button>
+<br>
+<button id="btn1">Toggle between hiding and showing the paragraphs</button>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script>
 //define array of card objects
@@ -139,11 +141,14 @@ function dealThreeCards(deckOfCards){
     //return hand;
     
 }//end function
-    
-$(document).ready(function(){
-    $("p").on("click", function(){
-        ;
-    });
-});
       
 </script>
+    
+<script>
+$(document).ready(function(){
+    $("#btn1").click(function(){
+        $("p").toggle();
+    });
+});
+    
+    </script>
