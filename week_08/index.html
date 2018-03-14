@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head><script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+</head>
+<body>
+
+<h1>Five Day Forecast</h1>
+
+<form id="form1" action="#" onsubmit="return validateForm(this);">
+    <p>Enter US City Name: <input type="text" name="cityname"></p>
+
+<button>Check</button>
+</form>
+    
+<table></table>
+    
+<script>
+//add document ready 
+$(document).ready(function(){
+    t = $('table');
+    
+    var times = 5;
+    for(var i=0; i < times; i++){
+        t.append('<p id="dateTime' + i + 
+                 '"></p><p id="minTemp' + i + 
+                 '"><p id="maxTemp' + i + 
+                 '"><p id="humidity' + i + 
+                 '"><p id="desc' + i + 
+                 '"><p id="icon' + i + 
+                 '">');
+                
+    }
+    
+    $('button').on('click', function(e) {
+        e.preventDefault();
+
+        //key: 42d23a801d6da0e60f1024be90374838
+
+        var cityname = form1.cityname.value; // get text of firstname field
+
+        //console.log(validatePass(password))
+        if (cityname.length == 0) 
+        {//check for user input in firstname field
+
+            $("#message").html("Please Enter City Name");
+
+        } else if (!isNaN(cityname))
+        {//check for user input in lastname field
+
+            $("#message").html("Please Enter City Name");
+
+        } else
+        {//if input passes all check output success
+
+            URL = 'http://api.openweathermap.org/data/2.5/forecast?q='+ cityname +',us&APPID=42d23a801d6da0e60f1024be90374838' 
+
+            $.get(URL,function(response,status) {
+                if (status == "success") {
+                // handle a successful request
+
+                console.log(response);
+
+                var times = 5;
+                for(var i=0; i < times; i++){
+
+                    var forecast_date = new Date(response.list[i*7].dt*1000).toString();
+
+                    var desc = response.list[i*7].weather[0].description
+                    desc = desc[0].toUpperCase() + desc.substr(1);
+
+                    $("#dateTime" + i).html('Date Time: ' + forecast_date);
+                    $("#minTemp" + i).html('Min Temp: ' + kelvinToF(response.list[i*7].main.temp_min));
+                    $("#maxTemp" + i).html('Max Temp: ' + kelvinToF(response.list[i*7].main.temp_max));
+                    $("#humidity" + i).html('Humidity: ' + response.list[i*7].main.humidity + '%');
+                    $("#desc" + i).html(desc);
+                    $("#icon" + i).html('<img src="http://openweathermap.org/img/w/' + response.list[i*7].weather[0].icon + '.png">');
+                }
+
+
+                } else {
+                    // request failed
+                    $("#message").html("Request Failed");
+                }
+            });
+            $("#message").html("Success");
+        }
+
+        return false; // prevent page reload 
+    });
+
+})
+                  
+function kelvinToF(value) {
+  var fahrenheit = (((Number(value) - 273.15)*9)/5) + 32;
+  return fahrenheit.toFixed(2);
+}
+
+</script>
+
+</body>
+</html>
